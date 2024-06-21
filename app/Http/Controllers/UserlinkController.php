@@ -9,8 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 class UserlinkController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $links = User::with('links')->get();
+        return view('admins.userlink', compact('links'));
+    }
+    public function datalink()
+    {
+        $links = Shortlink::with('user')->get();
+        $links = $links->map(function ($link) {
+            $link->user_name = $link->user ? $link->user->name : '';
+            return $link;
+        });
         return view('admins.linkmanagement', compact('links'));
     }
     public function deleteLinks(Request $request)

@@ -19,13 +19,15 @@
                         links that have been shortened.</h5>
                     <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">We've
                         collected all the URLs you've ever used.</p>
+                    {{-- @php
+                        dd($links);
+                    @endphp --}}
                     <div
                         class="w-full p-2 text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div class="table-responsive">
                             <table id="example" class="display nowrap text-sm" style="width:100%;margin: 0 auto;">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th></th>
                                         <th>Username</th>
                                         <th>Original</th>
@@ -38,39 +40,40 @@
                                     @if ($links)
                                         @foreach ($links as $userlink)
                                             <tr>
-                                                <td><input type="checkbox"
-                                                        class="link-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                                        name="linksToDelete[]" value="{{ $userlink->id }}"></td>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $userlink->name }}</td>
                                                 <td>
-                                                    @if ($userlink->user_name)
-                                                        {{ $userlink->user_name }}
-                                                    @else
-                                                        <h1 class="text-gray-400">Guest</h1>
-                                                    @endif
+                                                    @foreach ($userlink->links as $link_data)
+                                                        <input type="checkbox" class="link-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                            name="linksToDelete[]" value="{{ $link_data->id }}" >
+                                                        @if (strlen($link_data->original_url) > 50)
+                                                            <span
+                                                                class="truncate-text" for="">{{ substr($link_data->original_url, 0, 50) }}...</span>
+                                                            <br>
+                                                        @else
+                                                            {{ $link_data->original_url }}
+                                                            <br>
+                                                        @endif
+                                                    @endforeach
                                                 </td>
                                                 <td>
-                                                    @if (strlen($userlink->original_url) > 50)
-                                                        <span class="truncate-text"
-                                                            for="">{{ substr($userlink->original_url, 0, 50) }}...</span>
-                                                        <br>
-                                                    @else
-                                                        {{ $userlink->original_url }}
-                                                        <br>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a class="text-blue-400 hover:text-blue-900"
-                                                        href="{{ url($userlink->short_url) }}" target="_blank">
-                                                        {{ url($userlink->short_url) }}
-                                                        <br>
+                                                    @foreach ($userlink->links as $link_data)
+                                                        <a class="text-blue-400 hover:text-blue-900"
+                                                            href="{{ url($link_data->short_url) }}" target="_blank">
+                                                            {{ url($link_data->short_url) }}
+                                                            <br>
+                                                    @endforeach
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    {{ $userlink->visits }}<br>
+                                                    @foreach ($userlink->links as $link_data)
+                                                        {{ $link_data->visits }}<br>
+                                                    @endforeach
                                                 </td>
                                                 <td>
-                                                    {{ $userlink->created_at }}<br>
+                                                    @foreach ($userlink->links as $link_data)
+                                                        {{ $link_data->created_at }}<br>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -104,7 +107,7 @@
                     $('.delete-button-appear').hide();
                 }
             });
-            
+
             $('#example').DataTable({
                 responsive: false,
                 paging: true,
@@ -112,9 +115,6 @@
                 scrollX: true,
                 /* scrollY: , */
             });
-
-            
-
         });
 
         //Delete select data

@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Admin
 Route::middleware(['auth', 'verified', 'checkRole:100'])->group(function () {
     Route::get('/managelink', [UserlinkController::class, 'index'])->name('admins.managelink');
+    Route::get('/datalink', [UserlinkController::class, 'datalink'])->name('admins.datalink');
     Route::delete('/links/delete', [UserlinkController::class, 'deleteLinks'])->name('delete.links');
 });
 

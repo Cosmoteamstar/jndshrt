@@ -40,7 +40,10 @@
                         </x-dropdown-link>
                         @if (Auth::user()->role==100)
                         <x-dropdown-link :href="route('admins.managelink')">
-                            {{ __('Users links') }}
+                            {{ __('Users links management') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('admins.datalink')">
+                            {{ __('All Links management') }}
                         </x-dropdown-link>
                         @endif
                         <!-- Authentication -->
@@ -88,7 +91,10 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admins.managelink')">
-                    {{ __('Users links') }}
+                    {{ __('Users links management') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admins.datalink')">
+                    {{ __('All Links management') }}
                 </x-responsive-nav-link>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
