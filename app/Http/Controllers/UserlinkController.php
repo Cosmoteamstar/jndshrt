@@ -13,7 +13,6 @@ class UserlinkController extends Controller
         $links = User::with('links')->get();
         return view('admins.linkmanagement', compact('links'));
     }
-    
     public function deleteLinks(Request $request)
     {
         $linkIds = $request->input('linkIds', []);
