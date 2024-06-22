@@ -104,7 +104,7 @@
                     $('.delete-button-appear').hide();
                 }
             });
-            
+
             $('#example').DataTable({
                 responsive: false,
                 paging: true,
@@ -116,8 +116,6 @@
             
 
         });
-
-        //Delete select data
         $('.delete-link-btn').click(function() {
             var linkIds = [];
             $('.link-checkbox:checked').each(function() {

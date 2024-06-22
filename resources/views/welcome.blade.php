@@ -73,8 +73,6 @@
                 <h1 class="mb-2 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                     Shrink your links, expand your reach!🐟</h1>
             </div>
-            {{-- <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-                A website that gives you easy, one-click access to links.</p> --}}
             <div
                 class="w-full mt-4 p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Short URL here!!</h5>
